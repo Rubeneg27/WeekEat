@@ -41,6 +41,6 @@ export default function Foods(): JSX.Element {
         margin: 10,
         width: 150,
         height: 150,
-        backgroundColor: 'yellow'
+        backgroundColor: 'orange'
     }
   });
