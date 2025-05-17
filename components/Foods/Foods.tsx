@@ -1,5 +1,5 @@
-import React, { JSX, useEffect, useState } from 'react';
-import { StyleSheet, Text, ScrollView } from 'react-native';
+import React, { JSX, useEffect, useState, useRef } from 'react';
+import { StyleSheet, Text, ScrollView, Animated, View, PanResponder } from 'react-native';
 import { supabase } from '../../supaBaseClient';
 
 type FoodItem = {
@@ -7,6 +7,35 @@ type FoodItem = {
     name: string;
     ingredients: string;
     description: string;
+  };
+
+  const DraggableCard = ({ name }: { name: string }) => {
+    const pan = useRef(new Animated.ValueXY()).current;
+  
+    const panResponder = useRef(
+      PanResponder.create({
+        onMoveShouldSetPanResponder: () => true,
+        onPanResponderMove: Animated.event(
+          [null, { dx: pan.x, dy: pan.y }],
+          { useNativeDriver: false }
+        ),
+        onPanResponderRelease: () => {
+          Animated.spring(pan, {
+            toValue: { x: 0, y: 0 }, // volver al origen
+            useNativeDriver: false,
+          }).start();
+        },
+      })
+    ).current;
+  
+    return (
+      <Animated.View
+        {...panResponder.panHandlers}
+        style={[pan.getLayout(), styles.foodCard]}
+      >
+        <Text style={styles.cardText}>{name}</Text>
+      </Animated.View>
+    );
   };
 
 export default function Foods(): JSX.Element {
@@ -28,9 +57,7 @@ export default function Foods(): JSX.Element {
     return (
       <ScrollView horizontal>
         {food.map(item => (
-          <Text key={item.id} style={styles.foodCard}>
-            {item.name}
-          </Text>
+          <DraggableCard  key={item.id} name={item.name} />
         ))}
       </ScrollView>
     );
@@ -42,5 +69,10 @@ export default function Foods(): JSX.Element {
         width: 150,
         height: 150,
         backgroundColor: 'orange'
-    }
+    },
+    cardText: {
+      color: 'white',
+      fontWeight: 'bold',
+      fontSize: 16,
+    },
   });
