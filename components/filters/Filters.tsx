@@ -6,9 +6,9 @@ const ingredients:string[] = ['Calabaza', 'Queso azul', 'Harina de garbanzo', 'P
 
 export default function Filters():JSX.Element{
     return(
-        <ScrollView horizontal>
+        <ScrollView horizontal style={styles.wrapper}>
             {ingredients.map((ingredient)=>(
-                <Text key={ingredient} style={styles.wrapper}>{ingredient}</Text>
+                <Text key={ingredient} style={styles.margin}>{ingredient}</Text>
             ))}
         </ScrollView>
     )
@@ -16,8 +16,9 @@ export default function Filters():JSX.Element{
 
 const styles = StyleSheet.create({
     wrapper: {
+        backgroundColor: 'white'
+    },
+    margin: {
         margin: 10,
-        
-        zIndex: 9999,
     }
   });
