@@ -16,6 +16,8 @@ export default function Filters():JSX.Element{
 
 const styles = StyleSheet.create({
     wrapper: {
-        margin: 10
+        margin: 10,
+        
+        zIndex: 9999,
     }
   });
