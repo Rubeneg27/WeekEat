@@ -7,11 +7,11 @@ import Filters from './components/filters/Filters';
 export default function App() {
   return (
     <View style={styles.container}>
-      {/* <Text style={styles.title}>Semana</Text>
-      <WeekWrapper></WeekWrapper>
+      <Text style={styles.title}>Semana</Text>
+      <WeekWrapper/>
       <Text style={styles.title}>Filtros</Text>
       <Filters></Filters>
-      <Text style={styles.title}>Recetas</Text> */}
+      <Text style={styles.title}>Recetas</Text>
       <Foods></Foods>
     </View>
   );
