@@ -1,0 +1,72 @@
+import React from 'react';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Button } from 'react-native';
+
+export type RecipeItem = {
+  id: number;
+  name: string;
+};
+
+const weekDays = ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
+
+type WeekDaysProps = {
+  recipeSelected: RecipeItem | null;
+  assigned: Record<string,string>;
+  onAssignSlot: (dayIdx: number, slotIdx: number) => void;
+  onClearWeek: () => void;   // callback para borrar la semana
+};
+
+export default function WeekDays({
+  recipeSelected,
+  assigned,
+  onAssignSlot,
+  onClearWeek
+}: WeekDaysProps) {
+  return (
+    <View>
+      <View style={styles.marginV}>
+        <Button
+          onPress={onClearWeek}
+          title="Borrar semana"
+          color="red"
+          accessibilityLabel="Borrar todas las asignaciones de la semana"
+        />
+      </View>
+      <ScrollView style={styles.daysContainer}>
+        {weekDays.map((day, dIdx) => (
+          <View key={dIdx} style={styles.dayCard}>
+            <Text style={styles.dayTitle}>{day}</Text>
+            {[0,1,2].map(sIdx => {
+              const key = `${dIdx}-${sIdx}`;
+              return (
+                <TouchableOpacity
+                  key={sIdx}
+                  style={[
+                    styles.slot,
+                    recipeSelected && styles.slotActive
+                  ]}
+                  onPress={() => onAssignSlot(dIdx, sIdx)}
+                >
+                  <Text>
+                    {assigned[key] || `Slot ${sIdx+1}`}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })}
+          </View>
+        ))}
+      </ScrollView>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  daysContainer: { flex: 2, width: 220 },
+  dayCard: { margin: 5, padding: 5, backgroundColor:'#faa', borderRadius:6 },
+  dayTitle: { fontWeight:'bold', marginBottom:4 },
+  slot: {
+    height: 40, marginVertical:4, backgroundColor:'#fc9', borderRadius:4,
+    justifyContent:'center', alignItems:'center'
+  },
+  slotActive: { borderWidth:2, borderColor:'blue' },
+  marginV: { marginVertical: 10 }
+});
