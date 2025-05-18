@@ -22,8 +22,10 @@ const DraggableCard = ({
           onDragStart();
         },
   
-        onPanResponderMove: (evt, gestureState) => {
-          onDragMove({ x: gestureState.moveX - 75, y: gestureState.moveY - 75 });
+        onPanResponderMove: (evt, gesture) => {
+          // moveX/Y ya son coordenadas de pantalla
+          onDragMove({ x: gesture.moveX, y: gesture.moveY });
+          pan.setValue({ x: gesture.dx, y: gesture.dy });
         },
   
         onPanResponderRelease: () => {
@@ -43,9 +45,7 @@ const DraggableCard = ({
     card: {
       backgroundColor: 'orange',
       width: 100,
-      height: 100,
-      marginTop: 50,
-      marginHorizontal: 20
+      margin: 10
     }
   });
 

@@ -14,13 +14,14 @@ const WeekDayCard = forwardRef(({ day, registerDropZone }: WeekDayCardProps, ref
   const measureLayout = () => {
     const handle = findNodeHandle(viewRef.current);
     if (handle) {
-      UIManager.measure(handle, (_x, _y, width, height, pageX, pageY) => {
-        const layout = { x: pageX, y: pageY, width, height };
+      UIManager.measureInWindow(handle, (x, y, width, height) => {
+        const layout = { x, y, width, height };
+        console.log(`🗺️  Zona de drop para ${day}:`, layout);
         registerDropZone(day, layout);
       });
+      
     }
   };
-
   // Medir al montar
   useEffect(() => {
     setTimeout(() => {
@@ -34,18 +35,28 @@ const WeekDayCard = forwardRef(({ day, registerDropZone }: WeekDayCardProps, ref
   }));
 
   return (
-    <View ref={viewRef}>
-      <Text style={styles.card}>{day}</Text>
+    <View 
+      ref={viewRef}
+      style={styles.cardContainer}         // estilo CON height fijo y sin margin
+      onLayout={() => measureLayout()}     // mide tras layout
+    >
+      <Text style={styles.cardText}>{day}</Text>
     </View>
   );
 });
 
 const styles = StyleSheet.create({
-  card: {
+  cardContainer: {
     width: 220,
-    height: 300,
+    height: 100,         // aquí el height que esperas
     backgroundColor: 'green',
-    margin: 10,
+  },
+  cardText: {
+    // sin width/height aquí
+    textAlign: 'center',
+    lineHeight: 100,    // centra verticalmente el texto
+    color: '#fff',
+    fontWeight: 'bold',
   },
 });
 

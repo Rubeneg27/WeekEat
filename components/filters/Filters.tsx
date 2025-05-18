@@ -16,7 +16,7 @@ export default function Filters():JSX.Element{
 
 const styles = StyleSheet.create({
     wrapper: {
-        backgroundColor: 'white'
+        backgroundColor: 'white',
     },
     margin: {
         margin: 10,

@@ -48,27 +48,25 @@ export default function Foods(): JSX.Element {
     },[]);
 
     useEffect(() => {
-      console.log("dragPosition actualizado:", dragPosition);
       dragPositionRef.current = dragPosition;
-
     }, [dragPosition]);
     
     const registerDropZone = (day: string, layout: DropZones[string]) => {
       setDropZones(prev => ({ ...prev, [day]: layout }));
     };
 
-    function UpdateDaysPosition() {
+    async function UpdateDaysPosition() {
       if (weekWrapperRef.current?.measureAll) {
         weekWrapperRef.current.measureAll();
-        console.log("Actualizando posición de days " + weekWrapperRef.current.measureAll());
+        // Espera un tick para que se registren bien todas las zonas
+        await new Promise(res => setTimeout(res, 0));
       }
     }
-  
     
-    function StartDragging(item: FoodItem) {
+    async function StartDragging(item: FoodItem) {
       if (isDragging || dragTimeout.current) return;
     
-      UpdateDaysPosition()
+      await UpdateDaysPosition()
       dragTimeout.current = setTimeout(() => {
         console.log("Dragging " + item.name);
         setDraggedCard(item);
@@ -95,21 +93,17 @@ export default function Foods(): JSX.Element {
         console.log("Dropped " + draggedCardRef.current.name + " en " + x + " " + y);
         for (const day of weekDays) {
           const zone = dropZones[day];
-          console.log(zone)
           if (
             zone &&
-            x >= zone.x &&
-            x <= zone.x + zone.width &&
-            y >= zone.y &&
-            y <= zone.y + zone.height
+            x >= zone.x && x <= zone.x + zone.width &&
+            y >= zone.y && y <= zone.y + zone.height
           ) {
             console.log(`🔥 Soltado sobre: ${day}`);
             onDrop(day);
             break;
-          } else {
-            console.log("Soltado fuera de " + day)
           }
         }
+        
       } else {
         console.log("No dragged Card")
       }
@@ -123,53 +117,75 @@ export default function Foods(): JSX.Element {
 
     return (
       <View style={styles.mainContainer}>
-        <Text style={styles.title}>Semana</Text>
-        <WeekWrapper
-        registerDropZone={registerDropZone}
-        ref={weekWrapperRef}
-      />
-        <Text style={styles.title}>Filtros</Text>
-        <Filters></Filters>
-        <Text style={styles.title}>Recetas</Text>
-        <ScrollView horizontal style={styles.foodWrapper}>
-          {food.map(item => (
-            <DraggableCard  
-            key={item.id} 
-            name={item.name}
-            onDragStart={() => StartDragging(item)}
-            onDragMove={setDragPosition}
-            onDragEnd={() => FinishDragging()}
-            />
-          ))}
-        </ScrollView>
-          {draggedCard && (
-            <Animated.View
-              style={[
-                styles.dragOverlay,
-                {
-                  transform: [
-                    { translateX: dragPosition.x },
-                    { translateY: dragPosition.y },
-                  ],
-                },
-              ]}
-              pointerEvents="none"
-              >
-              <Text style={styles.dragCard}>{draggedCard.name}</Text>
-              </Animated.View>
+        {draggedCard && (
+          <Animated.View
+            style={[
+              styles.dragOverlay,
+              {
+                transform: [
+                  { translateX: dragPosition.x },
+                  { translateY: dragPosition.y },
+                ],
+              },
+            ]}
+            pointerEvents="none"
+            >
+            <Text style={styles.dragCard}>{draggedCard.name}</Text>
+            </Animated.View>
           )}
+        <View style={styles.flexContainer}>
+        <View style={styles.row}>
+          <WeekWrapper
+            registerDropZone={registerDropZone}
+            ref={weekWrapperRef}
+          />
+        </View>
+        {/* <View style={styles.row}>
+          <Filters></Filters>
+        </View> */}
+        <View style={styles.row}>
+          <ScrollView horizontal style={styles.foodWrapper}>
+            {food.map(item => (
+              <DraggableCard  
+              key={item.id} 
+              name={item.name}
+              onDragStart={() => StartDragging(item)}
+              onDragMove={setDragPosition}
+              onDragEnd={() => FinishDragging()}
+              />
+            ))}
+          </ScrollView>
+        </View>
+        {/* <Text style={styles.title}>Semana</Text> */}
+
+        {/* <Text style={styles.title}>Filtros</Text>
+
+        <Text style={styles.title}>Recetas</Text> */}
+        </View>
       </View>
+      
     );
   }
   
   const styles = StyleSheet.create({
     foodWrapper: {
       backgroundColor: 'purple',
-      height: 100
+    },
+    row: {
+      height: 200,
+      backgroundColor: 'grey',
+      alignSelf: 'stretch',  // ← ocupa todo el ancho del padre
+      // opcional: marginVertical: 10,
     },
     mainContainer: {
       flex: 1,
+      position: 'relative'
+    },
+    flexContainer: {
+      flex: 1,
+      flexDirection: 'column',
       backgroundColor: 'lightblue',
+      justifyContent: 'space-between'
     },
     dragOverlay: {
       position: 'absolute',
@@ -188,6 +204,6 @@ export default function Foods(): JSX.Element {
     },
     
     title: {
-      paddingTop: 30,
+      // paddingTop: 30,
     }
   });
