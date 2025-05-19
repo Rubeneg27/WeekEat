@@ -1,13 +1,37 @@
-import { JSX } from "react";
+import { JSX, use, useEffect, useState } from "react";
 import { View, Text, ScrollView, StyleSheet, Button } from "react-native";
+import { fetchFilters } from "../../data/recipes";
 
 const categories:string[] = ['Verduras', 'Carnes']
-const ingredients:string[] = ['Calabaza', 'Queso azul', 'Harina de garbanzo', 'Pistachos', 'Burrata']
+
 
 export default function Filters():JSX.Element{
 
-    function addFilter(filtro:string){
-        console.log('Añadido filtro' + filtro)
+    const [ingredients, setIngredients] = useState<string[]>([]);
+    const [activeFilters, setActiveFilters] = useState<string[]>([])
+
+    useEffect(() => {
+        fetchFilters().then((data) => {
+            // Extraemos todos los ingredientes
+            const allIngredients = data.flatMap(item => item.ingredients);
+            // Eliminamos duplicados
+            const uniqueIngredients = Array.from(new Set(allIngredients));
+
+            setIngredients(uniqueIngredients);
+
+        });
+    }, []);
+
+    useEffect(()=>{
+        console.log(activeFilters)
+    },[activeFilters])
+
+    function addFilter(filtro: string) {
+        // Evitamos duplicados:
+        if (!activeFilters.includes(filtro)) {
+            setActiveFilters([...activeFilters, filtro]);
+            console.log('Añadido filtro: ' + filtro);
+        }
     }
 
     return(
@@ -30,7 +54,7 @@ export default function Filters():JSX.Element{
                     {ingredients.map((ingredient)=>(
                         <View style={styles.marginH}>
                             <Button
-                            onPress={() =>addFilter(ingredient)}
+                            onPress={() => addFilter(ingredient)}
                             title={ingredient}
                             color="#73465c"
                             accessibilityLabel="Add filter to show recipes"

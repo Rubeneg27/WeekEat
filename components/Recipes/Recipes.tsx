@@ -2,11 +2,7 @@
 
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
-
-export type RecipeItem = {
-  id: number;
-  name: string;
-};
+import { RecipeItem } from '../weekDays/WeekDays';
 
 type RecipesProps = {
   recipes: RecipeItem[];
@@ -14,11 +10,8 @@ type RecipesProps = {
   onSelectRecipe: (recipe: RecipeItem) => void;
 };
 
-export default function Recipes({
-  recipes,
-  selectedRecipe,
-  onSelectRecipe,
-}: RecipesProps) {
+export default function Recipes({ recipes,selectedRecipe,onSelectRecipe, }: RecipesProps) {
+
   return (
     <ScrollView style={styles.recipesContainer}>
       {recipes.map(r => (

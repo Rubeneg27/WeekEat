@@ -1,21 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Button ,  StatusBarStyle, StatusBar } from 'react-native';
-import { supabase } from './supaBaseClient';
 import WeekDays from './components/weekDays/WeekDays';
-import Recipes, { RecipeItem } from './components/Recipes/Recipes';
+import Recipes from './components/Recipes/Recipes';
 import Filters from './components/filters/Filters';
+import { RecipeItem } from './data/types';
+import { fetchRecipes } from './data/recipes';
 
 export default function App() {
   const [recipes, setRecipes] = useState<RecipeItem[]>([]);
   const [selected, setSelected] = useState<RecipeItem | null>(null);
   const [assigned, setAssigned] = useState<Record<string,string>>({});
 
-  useEffect(() => {
-    supabase.from('food').select('*')
-      .then(({ data, error }) => {
-        if (!error) setRecipes(data as RecipeItem[]);
-      });
-  }, []);
+  useEffect(()=>{
+    fetchRecipes().then((data)=>(setRecipes(data)))
+  },[])
 
   const onSelectRecipe = (r: RecipeItem) => setSelected(r);
 
