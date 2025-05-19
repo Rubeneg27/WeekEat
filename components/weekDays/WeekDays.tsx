@@ -1,10 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Button } from 'react-native';
-
-export type RecipeItem = {
-  id: number;
-  name: string;
-};
+import { RecipeItem } from '../../data/types';
 
 const weekDays = ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
 

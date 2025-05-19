@@ -10,6 +10,7 @@ export default function App() {
   const [recipes, setRecipes] = useState<RecipeItem[]>([]);
   const [selected, setSelected] = useState<RecipeItem | null>(null);
   const [assigned, setAssigned] = useState<Record<string,string>>({});
+  const [activeFilters, setActiveFilters] = useState<string[]>([]);
 
   useEffect(()=>{
     fetchRecipes().then((data)=>(setRecipes(data)))
@@ -22,6 +23,14 @@ export default function App() {
     const key = `${dayIdx}-${slotIdx}`;
     setAssigned(prev => ({ ...prev, [key]: selected.name }));
     setSelected(null);
+  };
+
+  const handleAddFilter = (filter: string) => {
+    setActiveFilters((prev) =>
+      prev.includes(filter)
+        ? prev.filter((f) => f !== filter) // si está, lo quitamos
+        : [...prev, filter]                // si no está, lo agregamos
+    );
   };
 
   return (
@@ -40,9 +49,13 @@ export default function App() {
           recipes={recipes}
           selectedRecipe={selected}
           onSelectRecipe={onSelectRecipe}
+          activeFilters={activeFilters}
         />
       </View>
-      <Filters></Filters>
+      <Filters
+        ingredientsFilters={activeFilters}
+        onAddFilter={handleAddFilter}
+      />
     </View>
 
     

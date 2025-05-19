@@ -4,68 +4,64 @@ import { fetchFilters } from "../../data/recipes";
 
 const categories:string[] = ['Verduras', 'Carnes']
 
-
-export default function Filters():JSX.Element{
-
+type FiltersProps = {
+    ingredientsFilters: string[];
+    onAddFilter: (filter: string) => void;
+  };
+  
+  export default function Filters({
+    ingredientsFilters,
+    onAddFilter,
+  }: FiltersProps): JSX.Element {
+    // mantenemos sólo "ingredients" local
     const [ingredients, setIngredients] = useState<string[]>([]);
-    const [activeFilters, setActiveFilters] = useState<string[]>([])
-
+  
     useEffect(() => {
-        fetchFilters().then((data) => {
-            // Extraemos todos los ingredientes
-            const allIngredients = data.flatMap(item => item.ingredients);
-            // Eliminamos duplicados
-            const uniqueIngredients = Array.from(new Set(allIngredients));
-
-            setIngredients(uniqueIngredients);
-
-        });
+      fetchFilters().then((data) => {
+        const unique = Array.from(
+          new Set(data.flatMap((i) => i.ingredients))
+        );
+        setIngredients(unique);
+      });
     }, []);
-
-    useEffect(()=>{
-        console.log(activeFilters)
-    },[activeFilters])
-
-    function addFilter(filtro: string) {
-        // Evitamos duplicados:
-        if (!activeFilters.includes(filtro)) {
-            setActiveFilters([...activeFilters, filtro]);
-            console.log('Añadido filtro: ' + filtro);
-        }
-    }
-
-    return(
-        <View style={styles.vContainer}>
-            <View>
-                <ScrollView horizontal style={styles.hContainer}>
-                    {categories.map((category)=>(
-                        <View style={styles.marginH}>
-                            <Button
-                            onPress={() =>addFilter(category)}
-                            title={category}
-                            color="#841584"
-                            accessibilityLabel="Add filter to show recipes"
-                            />
-                        </View>
-                    ))}
-                </ScrollView>
+  
+    return (
+      <View style={styles.vContainer}>
+        {/* categorías */}
+        <ScrollView horizontal style={styles.hContainer}>
+          {categories.map((c) => (
+            <View key={c} style={styles.marginH}>
+              <Button
+                title={c}
+                onPress={() => onAddFilter(c)}
+                color="#841584"
+              />
             </View>
-            <ScrollView horizontal style={styles.hContainer}>
-                    {ingredients.map((ingredient)=>(
-                        <View style={styles.marginH}>
-                            <Button
-                            onPress={() => addFilter(ingredient)}
-                            title={ingredient}
-                            color="#73465c"
-                            accessibilityLabel="Add filter to show recipes"
-                            />
-                        </View>
-                    ))}
-            </ScrollView>
-        </View>
-
-    )
-}
+          ))}
+        </ScrollView>
+  
+        {/* ingredientes */}
+        <ScrollView horizontal style={styles.hContainer}>
+          {ingredients.map((ing) => (
+            <View key={ing} style={styles.marginH}>
+              <Button
+                title={ing}
+                onPress={() => onAddFilter(ing)}
+                color={ ingredients.includes(ing) ? "#73465c" : "#15465c" }
+              />
+            </View>
+          ))}
+        </ScrollView>
+  
+        {/* mostrar filtros activos */}
+        <ScrollView horizontal>
+            <Text style={{ marginTop: 10 }}>
+            Activos: {ingredientsFilters.join(', ') || 'ninguno'}
+            </Text>
+        </ScrollView>
+      </View>
+    );
+  }
 
 
 const styles = StyleSheet.create({

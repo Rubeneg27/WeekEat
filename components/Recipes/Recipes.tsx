@@ -1,20 +1,40 @@
 // components/recipes/Recipes.tsx
 
-import React from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
-import { RecipeItem } from '../weekDays/WeekDays';
+import { RecipeItem } from '../../data/types';
 
 type RecipesProps = {
   recipes: RecipeItem[];
   selectedRecipe: RecipeItem | null;
+  activeFilters: string[];   
   onSelectRecipe: (recipe: RecipeItem) => void;
 };
 
-export default function Recipes({ recipes,selectedRecipe,onSelectRecipe, }: RecipesProps) {
+export default function Recipes({ recipes,selectedRecipe,onSelectRecipe, activeFilters,}: RecipesProps) {
+
+  /** Filtra las recetas:
+   *  – Mantiene la receta si AL MENOS UNO de los filtros activos
+   *    aparece (ignorando mayúsculas/minúsculas) en su lista de ingredientes.
+   *  – Si activeFilters está vacío → muestra todas.
+   */
+  const filteredRecipes = useMemo(() => {
+    // si no hay filtros, devolvemos todas
+    if (activeFilters.length === 0) return recipes;
+
+    return recipes.filter((recipe) => {
+      const ingredientsLower = recipe.ingredients.map(i => i.toLowerCase());
+
+      // ¿existe algún filtro dentro de los ingredientes?
+      return activeFilters.some(filter =>
+        ingredientsLower.includes(filter.toLowerCase())
+      );
+    });
+  }, [recipes, activeFilters]);
 
   return (
     <ScrollView style={styles.recipesContainer}>
-      {recipes.map(r => (
+      {filteredRecipes.map(r => (
         <TouchableOpacity
           key={r.id}
           style={[
