@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
   },
   recipes_container: { flex: 1 },
   recipeCard: {
-    height: 100,
+    height: 130,
     margin: 10, 
     padding: 5, 
     backgroundColor: '#9f9',
@@ -101,10 +101,11 @@ const styles = StyleSheet.create({
   },
   recipeText: { fontSize: 16, height: 40 },
   addRecipe_button_container: { 
-    marginVertical: 10, 
-    flex: 0.05, 
+    marginBottom: 10,
+    height: 45,
     flexDirection: 'row', 
-    justifyContent: 'space-evenly' 
+    alignItems: 'center',
+    justifyContent: 'space-around'
   },
   view_button_cont: {
     padding: 10,

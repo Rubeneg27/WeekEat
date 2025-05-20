@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Button ,  StatusBarStyle, StatusBar, Modal, Text } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import WeekDays from './components/weekDays/WeekDays';
@@ -71,7 +73,8 @@ export default function App() {
   }
 
   return (
-    <View style={styles.mainContainer}>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <View style={styles.mainContainer}>
       <StatusBar
           backgroundColor="#61dafb"
       />
@@ -123,6 +126,8 @@ export default function App() {
         </View>
       </Modal>
     </View>
+    </GestureHandlerRootView>
+    
   );
 }
 
