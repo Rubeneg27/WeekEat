@@ -9,29 +9,39 @@ type WeekDaysProps = {
   assigned: Record<string,string>;
   onAssignSlot: (dayIdx: number, slotIdx: number) => void;
   onClearWeek: () => void;   // callback para borrar la semana
+  onSaveWeek: () => void;   // callback para guardar la semana
+  onLoadWeeks: () => void;   // callback para guardar la semana
 };
 
 export default function WeekDays({
   recipeSelected,
   assigned,
   onAssignSlot,
-  onClearWeek
+  onClearWeek,
+  onSaveWeek,
+  onLoadWeeks
 }: WeekDaysProps) {
   return (
     <View>
-      <View style={styles.marginV}>
+      <View style={styles.buttons_container}>
         <Button
           onPress={onClearWeek}
-          title="Borrar semana"
+          title="Borrar"
           color="red"
           accessibilityLabel="Borrar todas las asignaciones de la semana"
+        />
+                <Button
+          onPress={onSaveWeek}
+          title="Guardar"
+          color="green"
+          accessibilityLabel="Almacenar semana en memoria"
         />
       </View>
       <ScrollView style={styles.daysContainer}>
         {weekDays.map((day, dIdx) => (
           <View key={dIdx} style={styles.dayCard}>
             <Text style={styles.dayTitle}>{day}</Text>
-            {[0,1,2].map(sIdx => {
+            {[0,1].map(sIdx => {
               const key = `${dIdx}-${sIdx}`;
               return (
                 <TouchableOpacity
@@ -64,5 +74,5 @@ const styles = StyleSheet.create({
     justifyContent:'center', alignItems:'center'
   },
   slotActive: { borderWidth:2, borderColor:'blue' },
-  marginV: { marginVertical: 10 }
+  buttons_container: { marginVertical: 10, flex: 0.05, flexDirection: 'row', justifyContent: 'space-evenly' }
 });
