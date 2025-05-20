@@ -72,7 +72,6 @@ const filteredRecipes = useMemo(() => {
                 accessibilityLabel="Abrir detalles de la receta"
               />
             </View>
-
           </TouchableOpacity>
         ))}
       </ScrollView>
@@ -83,13 +82,12 @@ const filteredRecipes = useMemo(() => {
 const styles = StyleSheet.create({
   recipes_section_container: { 
     flex: 1,
-    backgroundColor: 'white'
   },
   recipes_container: { flex: 1 },
   recipeCard: {
-    height: 130,
     margin: 10, 
-    padding: 5, 
+    padding: 5,
+    height: 131,
     backgroundColor: '#9f9',
     borderRadius: 6,
     justifyContent: 'center',
@@ -99,13 +97,14 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: 'blue',
   },
-  recipeText: { fontSize: 16, height: 40 },
+  recipeText: { fontSize: 16, height: 65 },
   addRecipe_button_container: { 
-    marginBottom: 10,
-    height: 45,
+    padding: 2,
+    height: 55,
     flexDirection: 'row', 
     alignItems: 'center',
-    justifyContent: 'space-around'
+    justifyContent: 'space-around',
+
   },
   view_button_cont: {
     padding: 10,

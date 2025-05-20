@@ -83,10 +83,10 @@ const styles = StyleSheet.create({
   },
   slotActive: { borderWidth:2, borderColor:'blue' },
   buttons_container: { 
-    marginBottom: 10,
-    height: 45,
+    padding: 2,
+    height: 55,
     flexDirection: 'row', 
     alignItems: 'center',
-    justifyContent: 'space-around'
+    justifyContent: 'space-around',
   }
 });

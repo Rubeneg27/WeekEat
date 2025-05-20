@@ -132,7 +132,7 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  week_recipes_Container: { flex:4, flexDirection:'row', padding:10,  justifyContent: 'space-between' },
+  week_recipes_Container: { flex:4, flexDirection:'row', padding:10,  justifyContent: 'space-between' ,backgroundColor: 'white' },
   mainContainer: { flex: 1, flexDirection: 'column',},
   modalBackground: {
   flex: 1,

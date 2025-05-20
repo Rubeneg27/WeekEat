@@ -63,7 +63,7 @@ type FiltersProps = {
   
         {/* mostrar filtros activos */}
         <ScrollView horizontal>
-            <Text style={{ marginTop: 10 }}>
+            <Text style={styles.active_filters_container}>
             Activos: {ingredientsFilters.join(', ') || 'ninguno'}
             </Text>
         </ScrollView>
@@ -73,8 +73,9 @@ type FiltersProps = {
 
 
 const styles = StyleSheet.create({
-    vContainer: { flex:1, flexDirection:'column', padding:10 },
+    vContainer: { flex:1, flexDirection:'column', padding:10, backgroundColor: 'lightgrey' },
     hContainer: { padding:10 },
-    marginH: { marginHorizontal: 5 }
+    marginH: { marginHorizontal: 5 },
+    active_filters_container: { marginTop: 10 }
   });
   
