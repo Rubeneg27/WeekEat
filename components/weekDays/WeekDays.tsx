@@ -22,7 +22,7 @@ export default function WeekDays({
   onLoadWeeks
 }: WeekDaysProps) {
   return (
-    <View>
+    <View style={styles.week_section_container}>
       <View style={styles.buttons_container}>
         <Button
           onPress={onClearWeek}
@@ -30,14 +30,14 @@ export default function WeekDays({
           color="red"
           accessibilityLabel="Borrar todas las asignaciones de la semana"
         />
-                <Button
+        <Button
           onPress={onSaveWeek}
           title="Guardar"
           color="green"
           accessibilityLabel="Almacenar semana en memoria"
         />
       </View>
-      <ScrollView style={styles.daysContainer}>
+      <ScrollView style={styles.days_container}>
         {weekDays.map((day, dIdx) => (
           <View key={dIdx} style={styles.dayCard}>
             <Text style={styles.dayTitle}>{day}</Text>
@@ -66,13 +66,26 @@ export default function WeekDays({
 }
 
 const styles = StyleSheet.create({
-  daysContainer: { flex: 2, width: 220 },
-  dayCard: { margin: 5, padding: 5, backgroundColor:'#faa', borderRadius:6 },
+  week_section_container: {
+    flex: 1.5,
+  },
+  days_container: { flex: 1 },
+  dayCard: { 
+    margin: 10, 
+    padding: 5, 
+    backgroundColor:'#faa', 
+    borderRadius:6 
+  },
   dayTitle: { fontWeight:'bold', marginBottom:4 },
   slot: {
     height: 40, marginVertical:4, backgroundColor:'#fc9', borderRadius:4,
     justifyContent:'center', alignItems:'center'
   },
   slotActive: { borderWidth:2, borderColor:'blue' },
-  buttons_container: { marginVertical: 10, flex: 0.05, flexDirection: 'row', justifyContent: 'space-evenly' }
+  buttons_container: { 
+    marginVertical: 10, 
+    flex: 0.05, 
+    flexDirection: 'row', 
+    justifyContent: 'space-evenly' ,
+  }
 });

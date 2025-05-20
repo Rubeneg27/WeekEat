@@ -44,7 +44,7 @@ export default function Recipes({
   }
 
   return (
-    <View>
+    <View style={styles.recipes_section_container}>
       <View style={styles.addRecipe_button_container}>
         <Button 
             onPress={onAddNewRecipe}
@@ -53,7 +53,7 @@ export default function Recipes({
             accessibilityLabel="Borrar todas las asignaciones de la semana"
         />
       </View>
-      <ScrollView style={styles.recipesContainer}>
+      <ScrollView style={styles.recipes_container}>
         {filteredRecipes.map(r => (
           <TouchableOpacity
             key={r.id}
@@ -64,12 +64,15 @@ export default function Recipes({
             onPress={() => onSelectRecipe(r)}
           >
             <Text style={styles.recipeText}>{r.name}</Text>
-            <Button 
-              onPress={() => onOpenRecipeView(r)}
-              title="Ver"
-              color="grey"
-              accessibilityLabel="Abrir detalles de la receta"
-            />
+            <View style={styles.view_button_cont}>
+              <Button 
+                onPress={() => onOpenRecipeView(r)}
+                title="Ver"
+                color="grey"
+                accessibilityLabel="Abrir detalles de la receta"
+              />
+            </View>
+
           </TouchableOpacity>
         ))}
       </ScrollView>
@@ -78,10 +81,15 @@ export default function Recipes({
 }
 
 const styles = StyleSheet.create({
-  recipesContainer: { flex: 1, paddingLeft: 10 },
+  recipes_section_container: { 
+    flex: 1,
+    backgroundColor: 'white'
+  },
+  recipes_container: { flex: 1 },
   recipeCard: {
     height: 100,
-    marginVertical: 6,
+    margin: 10, 
+    padding: 5, 
     backgroundColor: '#9f9',
     borderRadius: 6,
     justifyContent: 'center',
@@ -92,5 +100,13 @@ const styles = StyleSheet.create({
     borderColor: 'blue',
   },
   recipeText: { fontSize: 16, height: 40 },
-  addRecipe_button_container: { marginVertical: 10, flex: 0.05, flexDirection: 'row', justifyContent: 'space-evenly' }
+  addRecipe_button_container: { 
+    marginVertical: 10, 
+    flex: 0.05, 
+    flexDirection: 'row', 
+    justifyContent: 'space-evenly' 
+  },
+  view_button_cont: {
+    padding: 10,
+  }
 });

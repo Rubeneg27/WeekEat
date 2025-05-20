@@ -74,7 +74,7 @@ export default function App() {
       <StatusBar
           backgroundColor="#61dafb"
       />
-      <View style={styles.container}>
+      <View style={styles.week_recipes_Container}>
         <WeekDays
           recipeSelected={selected}
           assigned={assigned}
@@ -124,7 +124,7 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex:4, flexDirection:'row', padding:10,  justifyContent: 'space-between' },
+  week_recipes_Container: { flex:4, flexDirection:'row', padding:10,  justifyContent: 'space-between' },
   mainContainer: { flex: 1, flexDirection: 'column',},
   modalBackground: {
   flex: 1,
