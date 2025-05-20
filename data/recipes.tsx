@@ -9,8 +9,16 @@ export async function fetchRecipes():Promise<RecipeItem[]> {
   return ( data as RecipeItem[])
 }
 
-export async function fetchFilters() {
+export async function fetchIngredients() {
   const { data, error } = await supabase.from('food').select('ingredients')
+
+  if (error) {console.log (error); return []}
+ 
+  return ( data )
+}
+
+export async function fetchCategories() {
+  const { data, error } = await supabase.from('food').select('Category')
 
   if (error) {console.log (error); return []}
  

@@ -7,6 +7,7 @@ import Recipes from './components/Recipes/Recipes';
 import Filters from './components/filters/Filters';
 import { RecipeItem, Week } from './data/types';
 import { fetchRecipes } from './data/recipes';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export default function App() {
   const [recipes, setRecipes] = useState<RecipeItem[]>([]);
@@ -95,30 +96,32 @@ export default function App() {
         ingredientsFilters={activeFilters}
         onAddFilter={handleAddFilter}
       />
-<Modal
-  visible={modalVisible}
-  transparent={true}
-  animationType="slide"
-  onRequestClose={() => setModalVisible(false)}
->
-  <View style={styles.modalBackground}>
-    <View style={styles.modalContent}>
-      <Button title="Cerrar" onPress={() => setModalVisible(false)} />
-      <View>
-        {selected && (
-          <View>
-            <Text style={styles.modalTitle}>{selected.name}</Text>
-            <Text style={styles.modalText}>Ingredientes:</Text>
-            {selected.ingredients.map((ing, idx) => (
-              <Text key={idx}>- {ing}</Text>
-            ))}
+      <Modal
+        visible={modalVisible}
+        transparent={true}
+        animationType="slide"
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <View style={styles.modalBackground}>
+          <View style={styles.modalContent}>
+            <Button title="Cerrar" onPress={() => setModalVisible(false)} />
+            <View>
+              {selected && (
+                <View>
+                  <Text style={styles.modalTitle}>{selected.name}</Text>
+                  <Text style={styles.modalText}>Ingredientes:</Text>
+                  {selected.ingredients.map((ing, idx) => (
+                    <Text key={idx}>- {ing}</Text>
+                  ))}
+                  <ScrollView>
+                    {selected.description}
+                  </ScrollView>
+                </View>
+              )}
+            </View>
           </View>
-        )}
-      </View>
-
-    </View>
-  </View>
-</Modal>
+        </View>
+      </Modal>
     </View>
   );
 }

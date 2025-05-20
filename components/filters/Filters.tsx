@@ -1,8 +1,6 @@
 import { JSX, use, useEffect, useState } from "react";
 import { View, Text, ScrollView, StyleSheet, Button } from "react-native";
-import { fetchFilters } from "../../data/recipes";
-
-const categories:string[] = ['Verduras', 'Carnes']
+import { fetchIngredients, fetchCategories } from "../../data/recipes";
 
 type FiltersProps = {
     ingredientsFilters: string[];
@@ -15,14 +13,24 @@ type FiltersProps = {
   }: FiltersProps): JSX.Element {
     // mantenemos sólo "ingredients" local
     const [ingredients, setIngredients] = useState<string[]>([]);
+    const [categories, setCategories] = useState<string[]>([]);
   
     useEffect(() => {
-      fetchFilters().then((data) => {
-        const unique = Array.from(
+      fetchIngredients().then((data) => {
+        const uniqueIng = Array.from(
           new Set(data.flatMap((i) => i.ingredients))
         );
-        setIngredients(unique);
+
+        setIngredients(uniqueIng);
       });
+
+        fetchCategories().then((data) => {
+        const uniqueCat = Array.from(
+        new Set(data.flatMap((i) => i.Category))
+        );
+
+        setCategories(uniqueCat)
+      })
     }, []);
   
     return (

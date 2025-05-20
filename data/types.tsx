@@ -2,6 +2,8 @@ export type RecipeItem = {
   id: number;
   name: string;
   ingredients: string[];
+  description: string;
+  Category: string[];
 };
 
 export type Week = {

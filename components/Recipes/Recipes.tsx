@@ -25,19 +25,19 @@ export default function Recipes({
    *    aparece (ignorando mayúsculas/minúsculas) en su lista de ingredientes.
    *  – Si activeFilters está vacío → muestra todas.
    */
-  const filteredRecipes = useMemo(() => {
-    // si no hay filtros, devolvemos todas
-    if (activeFilters.length === 0) return recipes;
+const filteredRecipes = useMemo(() => {
+  if (activeFilters.length === 0) return recipes;
 
-    return recipes.filter((recipe) => {
-      const ingredientsLower = recipe.ingredients.map(i => i.toLowerCase());
+  return recipes.filter((recipe) => {
+    const ingredientsLower = recipe.ingredients.map(i => i.toLowerCase());
+    const categoriesLower = recipe.Category.map(i => i.toLowerCase());
 
-      // ¿existe algún filtro dentro de los ingredientes?
-      return activeFilters.some(filter =>
-        ingredientsLower.includes(filter.toLowerCase())
-      );
+    return activeFilters.some(filter => {
+      const f = filter.toLowerCase();
+      return ingredientsLower.includes(f) || categoriesLower.includes(f);
     });
-  }, [recipes, activeFilters]);
+  });
+}, [recipes, activeFilters]);
 
   const onAddNewRecipe = () => {
     console.log("Añadiendo receta nueva")
