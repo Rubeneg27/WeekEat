@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Button ,  StatusBarStyle, StatusBar } from 'react-native';
+import { StyleSheet, View, Button ,  StatusBarStyle, StatusBar, Modal, Text } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import WeekDays from './components/weekDays/WeekDays';
@@ -13,6 +13,8 @@ export default function App() {
   const [selected, setSelected] = useState<RecipeItem | null>(null);
   const [assigned, setAssigned] = useState<Record<string,string>>({});
   const [activeFilters, setActiveFilters] = useState<string[]>([]);
+  const [modalVisible, setModalVisible] = useState(false);
+
 
   useEffect(()=>{
     loadWeek();
@@ -61,6 +63,12 @@ export default function App() {
     );
   };
 
+  const openRecipeModal = (r: RecipeItem) => {
+    console.log('Abriendo modal')
+    setSelected(r)
+    setModalVisible(true);
+  }
+
   return (
     <View style={styles.mainContainer}>
       <StatusBar
@@ -80,19 +88,63 @@ export default function App() {
           selectedRecipe={selected}
           onSelectRecipe={onSelectRecipe}
           activeFilters={activeFilters}
+          onOpenRecipeView={openRecipeModal}
         />
       </View>
       <Filters
         ingredientsFilters={activeFilters}
         onAddFilter={handleAddFilter}
       />
-    </View>
+<Modal
+  visible={modalVisible}
+  transparent={true}
+  animationType="slide"
+  onRequestClose={() => setModalVisible(false)}
+>
+  <View style={styles.modalBackground}>
+    <View style={styles.modalContent}>
+      <Button title="Cerrar" onPress={() => setModalVisible(false)} />
+      <View>
+        {selected && (
+          <View>
+            <Text style={styles.modalTitle}>{selected.name}</Text>
+            <Text style={styles.modalText}>Ingredientes:</Text>
+            {selected.ingredients.map((ing, idx) => (
+              <Text key={idx}>- {ing}</Text>
+            ))}
+          </View>
+        )}
+      </View>
 
-    
+    </View>
+  </View>
+</Modal>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex:4, flexDirection:'row', padding:10 },
-  mainContainer: { flex: 1, flexDirection: 'column'},
+  container: { flex:4, flexDirection:'row', padding:10,  justifyContent: 'space-between' },
+  mainContainer: { flex: 1, flexDirection: 'column',},
+  modalBackground: {
+  flex: 1,
+  backgroundColor: 'rgba(0,0,0,0.5)',
+  justifyContent: 'center',
+  alignItems: 'center',
+},
+modalContent: {
+  backgroundColor: 'white',
+  padding: 20,
+  borderRadius: 10,
+  width: '80%',
+},
+modalTitle: {
+  fontSize: 20,
+  fontWeight: 'bold',
+  marginBottom: 10,
+},
+modalText: {
+  fontSize: 16,
+  marginBottom: 5,
+}
 });
