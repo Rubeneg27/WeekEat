@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Button } from 'react-native';
 import { RecipeItem } from '../../data/types';
+import styles from '../styles';
 
 const weekDays = ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
 
@@ -22,8 +23,8 @@ export default function WeekDays({
   onLoadWeeks
 }: WeekDaysProps) {
   return (
-    <View style={styles.week_section_container}>
-      <View style={styles.buttons_container}>
+    <View style={localStyles.week_section_container}>
+      <View style={localStyles.buttons_container}>
         <Button
           onPress={onClearWeek}
           title="Borrar"
@@ -37,18 +38,19 @@ export default function WeekDays({
           accessibilityLabel="Almacenar semana en memoria"
         />
       </View>
-      <ScrollView style={styles.days_container}>
+      <ScrollView style={localStyles.days_container}>
         {weekDays.map((day, dIdx) => (
-          <View key={dIdx} style={styles.dayCard}>
-            <Text style={styles.dayTitle}>{day}</Text>
+          <View key={dIdx} style={[localStyles.dayCard, styles.bg_prmy_light_color]}>
+            <Text style={[localStyles.dayTitle]}>{day}</Text>
             {[0,1].map(sIdx => {
               const key = `${dIdx}-${sIdx}`;
               return (
                 <TouchableOpacity
                   key={sIdx}
                   style={[
-                    styles.slot,
-                    recipeSelected && styles.slotActive
+                    localStyles.slot,
+                    styles.shadow_thin,
+                    recipeSelected && localStyles.slotActive
                   ]}
                   onPress={() => onAssignSlot(dIdx, sIdx)}
                 >
@@ -65,15 +67,14 @@ export default function WeekDays({
   );
 }
 
-const styles = StyleSheet.create({
+const localStyles = StyleSheet.create({
   week_section_container: {
     flex: 1.5,
   },
   days_container: { flex: 1 },
   dayCard: { 
     margin: 10, 
-    padding: 5, 
-    backgroundColor:'#faa', 
+    padding: 5,
     borderRadius:6 
   },
   dayTitle: { fontWeight:'bold', marginBottom:4 },

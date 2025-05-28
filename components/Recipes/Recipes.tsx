@@ -3,6 +3,7 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Button } from 'react-native';
 import { RecipeItem } from '../../data/types';
+import styles from '../styles';
 
 type RecipesProps = {
   recipes: RecipeItem[];
@@ -44,8 +45,8 @@ const filteredRecipes = useMemo(() => {
   }
 
   return (
-    <View style={styles.recipes_section_container}>
-      <View style={styles.addRecipe_button_container}>
+    <View style={localStyles.recipes_section_container}>
+      <View style={localStyles.addRecipe_button_container}>
         <Button 
             onPress={onAddNewRecipe}
             title="Añadir receta"
@@ -53,18 +54,20 @@ const filteredRecipes = useMemo(() => {
             accessibilityLabel="Borrar todas las asignaciones de la semana"
         />
       </View>
-      <ScrollView style={styles.recipes_container}>
+      <ScrollView style={[localStyles.recipes_container]}>
         {filteredRecipes.map(r => (
           <TouchableOpacity
             key={r.id}
             style={[
-              styles.recipeCard,
-              selectedRecipe?.id === r.id && styles.recipeSelected
+              localStyles.recipeCard,
+              styles.bg_scd_color,
+              styles.dashed_border,
+              selectedRecipe?.id === r.id && localStyles.recipeSelected
             ]}
             onPress={() => onSelectRecipe(r)}
           >
-            <Text style={styles.recipeText}>{r.name}</Text>
-            <View style={styles.view_button_cont}>
+            <Text style={[localStyles.recipeText, styles.prmy_light_color]}>{r.name}</Text>
+            <View style={localStyles.view_button_cont}>
               <Button 
                 onPress={() => onOpenRecipeView(r)}
                 title="Ver"
@@ -79,16 +82,16 @@ const filteredRecipes = useMemo(() => {
   );
 }
 
-const styles = StyleSheet.create({
+const localStyles = StyleSheet.create({
   recipes_section_container: { 
     flex: 1,
   },
   recipes_container: { flex: 1 },
   recipeCard: {
+    color: 'white',
     margin: 10, 
     padding: 5,
     height: 131,
-    backgroundColor: '#9f9',
     borderRadius: 6,
     justifyContent: 'center',
     alignItems: 'center',

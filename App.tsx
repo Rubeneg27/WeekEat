@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Button ,  StatusBarStyle, StatusBar, Modal, Text } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-
+import styles from './components/styles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import WeekDays from './components/weekDays/WeekDays';
@@ -74,11 +74,11 @@ export default function App() {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <View style={styles.mainContainer}>
+      <View style={[localStyles.mainContainer]}>
       <StatusBar
           backgroundColor="#61dafb"
       />
-      <View style={styles.week_recipes_Container}>
+      <View style={[localStyles.week_recipes_Container, styles.bg_ntr_darkest_color]}>
         <WeekDays
           recipeSelected={selected}
           assigned={assigned}
@@ -105,14 +105,14 @@ export default function App() {
         animationType="slide"
         onRequestClose={() => setModalVisible(false)}
       >
-        <View style={styles.modalBackground}>
-          <View style={styles.modalContent}>
+        <View style={localStyles.modalBackground}>
+          <View style={localStyles.modalContent}>
             <Button title="Cerrar" onPress={() => setModalVisible(false)} />
             <View>
               {selected && (
                 <View>
-                  <Text style={styles.modalTitle}>{selected.name}</Text>
-                  <Text style={styles.modalText}>Ingredientes:</Text>
+                  <Text style={localStyles.modalTitle}>{selected.name}</Text>
+                  <Text style={localStyles.modalText}>Ingredientes:</Text>
                   {selected.ingredients.map((ing, idx) => (
                     <Text key={idx}>- {ing}</Text>
                   ))}
@@ -131,9 +131,9 @@ export default function App() {
   );
 }
 
-const styles = StyleSheet.create({
+const localStyles = StyleSheet.create({
   week_recipes_Container: { flex:4, flexDirection:'row', padding:10,  justifyContent: 'space-between' ,backgroundColor: 'white' },
-  mainContainer: { flex: 1, flexDirection: 'column',},
+  mainContainer: { flex: 1, flexDirection: 'column', paddingBottom: 10},
   modalBackground: {
   flex: 1,
   backgroundColor: 'rgba(0,0,0,0.5)',
