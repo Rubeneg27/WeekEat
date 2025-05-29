@@ -47,12 +47,13 @@ const filteredRecipes = useMemo(() => {
   return (
     <View style={localStyles.recipes_section_container}>
       <View style={localStyles.addRecipe_button_container}>
-        <Button 
+        <TouchableOpacity 
             onPress={onAddNewRecipe}
-            title="Añadir receta"
-            color="green"
             accessibilityLabel="Borrar todas las asignaciones de la semana"
-        />
+            style={[styles.bg_scd_light_color, styles.padding5]}
+        >
+          <Text>Añadir</Text>
+        </ TouchableOpacity>
       </View>
       <ScrollView style={[localStyles.recipes_container]}>
         {filteredRecipes.map(r => (

@@ -7,6 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import WeekDays from './components/weekDays/WeekDays';
 import Recipes from './components/Recipes/Recipes';
 import Filters from './components/filters/Filters';
+import FloatButton from './components/floatButton/FloatButton';
 import { RecipeItem, Week } from './data/types';
 import { fetchRecipes } from './data/recipes';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -17,6 +18,7 @@ export default function App() {
   const [assigned, setAssigned] = useState<Record<string,string>>({});
   const [activeFilters, setActiveFilters] = useState<string[]>([]);
   const [modalVisible, setModalVisible] = useState(false);
+  const [filtersVisible, setFiltersVisible] = useState(false);
 
 
   useEffect(()=>{
@@ -73,12 +75,12 @@ export default function App() {
   }
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <View style={[localStyles.mainContainer]}>
+    <GestureHandlerRootView >
+      <View style={[localStyles.mainContainer, styles.padding2, styles.paddingB10, styles.bg_ntr_color]}>
       <StatusBar
           backgroundColor="#61dafb"
       />
-      <View style={[localStyles.week_recipes_Container, styles.bg_ntr_darkest_color]}>
+      <View style={[localStyles.week_recipes_Container, styles.bg_ntr_darkest_color, styles.padding2]}>
         <WeekDays
           recipeSelected={selected}
           assigned={assigned}
@@ -95,10 +97,6 @@ export default function App() {
           onOpenRecipeView={openRecipeModal}
         />
       </View>
-      <Filters
-        ingredientsFilters={activeFilters}
-        onAddFilter={handleAddFilter}
-      />
       <Modal
         visible={modalVisible}
         transparent={true}
@@ -125,15 +123,20 @@ export default function App() {
           </View>
         </View>
       </Modal>
-    </View>
+      </View>
+      <Filters
+        ingredientsFilters={activeFilters}
+        onAddFilter={handleAddFilter}
+        isActive={filtersVisible}
+      />
+      <FloatButton onPressFunc={() => setFiltersVisible(!filtersVisible)}></FloatButton>
     </GestureHandlerRootView>
-    
   );
 }
 
 const localStyles = StyleSheet.create({
-  week_recipes_Container: { flex:4, flexDirection:'row', padding:10,  justifyContent: 'space-between' ,backgroundColor: 'white' },
-  mainContainer: { flex: 1, flexDirection: 'column', paddingBottom: 10},
+  week_recipes_Container: { flex:4, flexDirection:'row', justifyContent: 'space-between'},
+  mainContainer: { flex: 1, flexDirection: 'column'},
   modalBackground: {
   flex: 1,
   backgroundColor: 'rgba(0,0,0,0.5)',

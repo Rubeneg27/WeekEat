@@ -25,18 +25,20 @@ export default function WeekDays({
   return (
     <View style={localStyles.week_section_container}>
       <View style={localStyles.buttons_container}>
-        <Button
+        <TouchableOpacity
           onPress={onClearWeek}
-          title="Borrar"
-          color="red"
           accessibilityLabel="Borrar todas las asignaciones de la semana"
-        />
-        <Button
+          style={[styles.bgRed, styles.padding5]}
+        >
+          <Text>Borrar</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
           onPress={onSaveWeek}
-          title="Guardar"
-          color="green"
           accessibilityLabel="Almacenar semana en memoria"
-        />
+          style={[styles.bg_scd_light_color, styles.padding5]}
+        >
+          <Text>Guardar</Text>
+        </TouchableOpacity>
       </View>
       <ScrollView style={localStyles.days_container}>
         {weekDays.map((day, dIdx) => (

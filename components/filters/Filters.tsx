@@ -6,11 +6,13 @@ import styles from "../styles";
 type FiltersProps = {
     ingredientsFilters: string[];
     onAddFilter: (filter: string) => void;
+    isActive: boolean,
   };
   
   export default function Filters({
     ingredientsFilters,
     onAddFilter,
+    isActive
   }: FiltersProps): JSX.Element {
     // mantenemos sólo "ingredients" local
     const [ingredients, setIngredients] = useState<string[]>([]);
@@ -35,11 +37,15 @@ type FiltersProps = {
     }, []);
   
     return (
-      <View style={[localStyles.vContainer, styles.bg_ntr_dark_color]}>
+      <View style={
+        isActive ?
+        [styles.vContainer, styles.bg_ntr_dark_color, styles.marginR100, styles.filtersContainer, styles.width85, styles.padding2] 
+        : [styles.padding0, styles.width0, styles.vContainer, styles.bg_ntr_dark_color, styles.marginR100, styles.filtersContainer, styles.padding0]
+        }>
         {/* categorías */}
-        <ScrollView horizontal style={localStyles.hContainer}>
+        <ScrollView horizontal style={[styles.padding0]}>
           {categories.map((c) => (
-            <View key={c} style={localStyles.marginH}>
+            <View key={c} style={[styles.marginR10, styles.marginB10]}>
               <Button
                 title={c}
                 onPress={() => onAddFilter(c)}
@@ -50,9 +56,9 @@ type FiltersProps = {
         </ScrollView>
   
         {/* ingredientes */}
-        <ScrollView horizontal style={localStyles.hContainer}>
+        <ScrollView horizontal style={[]}>
           {ingredients.map((ing) => (
-            <View key={ing} style={localStyles.marginH}>
+            <View key={ing} style={[styles.marginR10, styles.marginB10]}>
               <Button
                 title={ing}
                 onPress={() => onAddFilter(ing)}
@@ -64,19 +70,10 @@ type FiltersProps = {
   
         {/* mostrar filtros activos */}
         <ScrollView horizontal>
-            <Text style={localStyles.active_filters_container}>
+            <Text style={[]}>
             Activos: {ingredientsFilters.join(', ') || 'ninguno'}
             </Text>
         </ScrollView>
       </View>
     );
   }
-
-
-const localStyles = StyleSheet.create({
-    vContainer: { flex:1, flexDirection:'column', padding:10, backgroundColor: 'lightgrey' },
-    hContainer: { padding:10 },
-    marginH: { marginHorizontal: 5 },
-    active_filters_container: { marginTop: 10 }
-  });
-  
