@@ -46,7 +46,7 @@ const filteredRecipes = useMemo(() => {
 
   return (
     <View style={localStyles.recipes_section_container}>
-      <View style={localStyles.addRecipe_button_container}>
+      {/* <View style={localStyles.addRecipe_button_container}>
         <TouchableOpacity 
             onPress={onAddNewRecipe}
             accessibilityLabel="Añadir receta nueva"
@@ -54,7 +54,7 @@ const filteredRecipes = useMemo(() => {
         >
           <Text>Añadir</Text>
         </ TouchableOpacity>
-      </View>
+      </View> */}
       <ScrollView style={[localStyles.recipes_container]}>
         {filteredRecipes.map(r => (
           <TouchableOpacity

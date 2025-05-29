@@ -24,7 +24,7 @@ export default function WeekDays({
 }: WeekDaysProps) {
   return (
     <View style={styles.flexDouble}>
-      <View style={[localStyles.buttons_container]}>
+      {/* <View style={[localStyles.buttons_container]}>
         <TouchableOpacity
           onPress={onClearWeek}
           accessibilityLabel="Borrar todas las asignaciones de la semana"
@@ -39,7 +39,7 @@ export default function WeekDays({
         >
           <Text>Guardar</Text>
         </TouchableOpacity>
-      </View>
+      </View> */}
       <ScrollView style={[]}>
         {weekDays.map((day, dIdx) => (
           <View key={dIdx} style={[styles.dayCard, styles.bg_prmy_light_color, styles.shadow_hard]}>

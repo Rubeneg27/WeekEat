@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   dayCard: { margin: 10, padding: 5, borderRadius:6 },
   daySlot: { height: 40, marginVertical:4, backgroundColor:'#fc9', borderRadius:4, justifyContent:'center', alignItems:'center'},
   daySlotActive: { borderWidth:2, borderColor:'blue' },
-  buttonUI: { color: 'black', padding: '5%', height: '100%', width: 100, justifyContent: 'center', alignItems: 'center', borderRadius: 5},
+  buttonUI: { color: 'black', padding: '5%', height: 60, width: 60, justifyContent: 'center', alignItems: 'center', borderRadius: 5},
 
   vContainer: { flex:1, flexDirection:'column', backgroundColor: 'lightgrey' },
   centerContent: { justifyContent: 'center', alignItems: 'center' },
