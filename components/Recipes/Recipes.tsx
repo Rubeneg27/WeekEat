@@ -50,7 +50,7 @@ const filteredRecipes = useMemo(() => {
         <TouchableOpacity 
             onPress={onAddNewRecipe}
             accessibilityLabel="Borrar todas las asignaciones de la semana"
-            style={[styles.bg_scd_light_color, styles.padding5]}
+            style={[styles.bg_scd_light_color, styles.padding5, styles.height100, styles.width100px, styles.centerContent]}
         >
           <Text>Añadir</Text>
         </ TouchableOpacity>

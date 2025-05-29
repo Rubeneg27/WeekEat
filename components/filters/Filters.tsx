@@ -39,7 +39,7 @@ type FiltersProps = {
     return (
       <View style={
         isActive ?
-        [styles.vContainer, styles.bg_ntr_dark_color, styles.marginR100, styles.filtersContainer, styles.width85, styles.padding2] 
+        [styles.vContainer, styles.bg_ntr_dark_color, styles.marginR100, styles.filtersContainer, styles.width90, styles.padding2, styles.shadow_hard] 
         : [styles.padding0, styles.width0, styles.vContainer, styles.bg_ntr_dark_color, styles.marginR100, styles.filtersContainer, styles.padding0]
         }>
         {/* categorías */}

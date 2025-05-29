@@ -76,7 +76,7 @@ export default function App() {
 
   return (
     <GestureHandlerRootView >
-      <View style={[localStyles.mainContainer, styles.padding2, styles.paddingB10, styles.bg_ntr_color]}>
+      <View style={[localStyles.mainContainer, styles.paddingB10, styles.bg_ntr_color]}>
       <StatusBar
           backgroundColor="#61dafb"
       />

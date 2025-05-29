@@ -28,6 +28,16 @@ const styles = StyleSheet.create({
     shadowRadius: 0,            // Difuminado de la sombra
     color: '#505b64',           // Esto es para el texto, no tiene que ver con la sombra
   },
+  shadow_hard: {
+        shadowColor: '#272b2e80',   // Color (puede incluir opacidad)
+    shadowOffset: {
+      width: 5,
+      height: 5,
+    },
+    shadowOpacity: 1,         // Valor entre 0 y 1
+    shadowRadius: 0,            // Difuminado de la sombra
+    color: '#505b64',  
+  },
   float_button: {
     width: 50,
     height: 50,
@@ -40,18 +50,29 @@ const styles = StyleSheet.create({
     zIndex: 10,
   },
   filtersContainer: {
-    bottom: 0,
-    position: 'absolute'
+    bottom: '3%',
+    left: '2%',
+    position: 'absolute',
+    borderRadius: '15px',
   },
+  dayTitle: { fontWeight:'bold', marginBottom:4, textAlign: 'center' },
+  dayCard: { margin: 10, padding: 5, borderRadius:6 },
+  daySlot: { height: 40, marginVertical:4, backgroundColor:'#fc9', borderRadius:4, justifyContent:'center', alignItems:'center'},
+  daySlotActive: { borderWidth:2, borderColor:'blue' },
 
   vContainer: { flex:1, flexDirection:'column', backgroundColor: 'lightgrey' },
+  centerContent: {     justifyContent: 'center', alignItems: 'center' },
+  flexDouble: { flex: 1.5 },
+
   marginR100: { marginRight: 100},
   marginR10: {marginRight: 10},
   marginB10: {marginBottom: 10},
   marginB20: {marginBottom: '20%'},
   width0: {width: '0%'},
   width100: {width: '100%'},
-  width85: {width: '85%'},
+  width100px: {width: 100},
+  width90: {width: '90%'},
+  height100: {height: '100%'},
   padding2: {padding: '2%'},
   padding0: {padding: '0%'},
   padding5: {padding: '5%'},

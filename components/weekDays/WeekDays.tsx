@@ -23,36 +23,36 @@ export default function WeekDays({
   onLoadWeeks
 }: WeekDaysProps) {
   return (
-    <View style={localStyles.week_section_container}>
-      <View style={localStyles.buttons_container}>
+    <View style={styles.flexDouble}>
+      <View style={[localStyles.buttons_container]}>
         <TouchableOpacity
           onPress={onClearWeek}
           accessibilityLabel="Borrar todas las asignaciones de la semana"
-          style={[styles.bgRed, styles.padding5]}
+          style={[styles.bgRed, styles.padding5, styles.height100, styles.width100px, styles.centerContent]}
         >
           <Text>Borrar</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={onSaveWeek}
           accessibilityLabel="Almacenar semana en memoria"
-          style={[styles.bg_scd_light_color, styles.padding5]}
+          style={[styles.bg_scd_light_color, styles.padding5, styles.height100, styles.width100px, styles.centerContent]}
         >
           <Text>Guardar</Text>
         </TouchableOpacity>
       </View>
-      <ScrollView style={localStyles.days_container}>
+      <ScrollView style={[]}>
         {weekDays.map((day, dIdx) => (
-          <View key={dIdx} style={[localStyles.dayCard, styles.bg_prmy_light_color]}>
-            <Text style={[localStyles.dayTitle]}>{day}</Text>
+          <View key={dIdx} style={[styles.dayCard, styles.bg_prmy_light_color]}>
+            <Text style={[styles.dayTitle]}>{day}</Text>
             {[0,1].map(sIdx => {
               const key = `${dIdx}-${sIdx}`;
               return (
                 <TouchableOpacity
                   key={sIdx}
                   style={[
-                    localStyles.slot,
+                    styles.daySlot,
                     styles.shadow_thin,
-                    recipeSelected && localStyles.slotActive
+                    recipeSelected && styles.daySlotActive
                   ]}
                   onPress={() => onAssignSlot(dIdx, sIdx)}
                 >
@@ -70,21 +70,6 @@ export default function WeekDays({
 }
 
 const localStyles = StyleSheet.create({
-  week_section_container: {
-    flex: 1.5,
-  },
-  days_container: { flex: 1 },
-  dayCard: { 
-    margin: 10, 
-    padding: 5,
-    borderRadius:6 
-  },
-  dayTitle: { fontWeight:'bold', marginBottom:4 },
-  slot: {
-    height: 40, marginVertical:4, backgroundColor:'#fc9', borderRadius:4,
-    justifyContent:'center', alignItems:'center'
-  },
-  slotActive: { borderWidth:2, borderColor:'blue' },
   buttons_container: { 
     padding: 2,
     height: 55,
