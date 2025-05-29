@@ -3,8 +3,9 @@ import { StyleSheet } from "react-native";
 const colors = {
   primary: '#ff8a65',
   primaryLight: '#fadfc9',
-  secondary: '#4ca89c',
-  secondaryLight: 'rgb(160 255 219)',
+  secondary: '#rgb(151 173 145)',
+  secondaryLight: 'rgb(197 207 185)',
+  secondaryLightest: 'rgb(221 235 230)',
   secondaryDark:'rgb(57 107 103)',
   neutral: 'rgb(71 104 109)',
   neutralDark: '#687881',
@@ -35,13 +36,13 @@ const styles = StyleSheet.create({
       height: 5,
     },
     shadowOpacity: 1,         // Valor entre 0 y 1
-    shadowRadius: 0,            // Difuminado de la sombra
+    shadowRadius: 5,            // Difuminado de la sombra
     color: '#505b64',  
   },
   float_button: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
+    width: 70,
+    height: 70,
+    borderRadius: 45,
     position: 'absolute',
     bottom: 20,
     right: 20,
@@ -59,9 +60,10 @@ const styles = StyleSheet.create({
   dayCard: { margin: 10, padding: 5, borderRadius:6 },
   daySlot: { height: 40, marginVertical:4, backgroundColor:'#fc9', borderRadius:4, justifyContent:'center', alignItems:'center'},
   daySlotActive: { borderWidth:2, borderColor:'blue' },
+  buttonUI: { color: 'black', padding: '5%', height: '100%', width: 100, justifyContent: 'center', alignItems: 'center', borderRadius: 5},
 
   vContainer: { flex:1, flexDirection:'column', backgroundColor: 'lightgrey' },
-  centerContent: {     justifyContent: 'center', alignItems: 'center' },
+  centerContent: { justifyContent: 'center', alignItems: 'center' },
   flexDouble: { flex: 1.5 },
 
   marginR100: { marginRight: 100},
@@ -93,6 +95,9 @@ const styles = StyleSheet.create({
   },
   bg_scd_light_color: {
     backgroundColor: colors.secondaryLight
+  },
+  bg_scd_lightest_color: {
+  backgroundColor: colors.secondaryLightest
   },
   bg_scd_dark_color: {
     backgroundColor: colors.secondaryDark

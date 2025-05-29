@@ -80,7 +80,7 @@ export default function App() {
       <StatusBar
           backgroundColor="#61dafb"
       />
-      <View style={[localStyles.week_recipes_Container, styles.bg_ntr_darkest_color, styles.padding2]}>
+      <View style={[localStyles.week_recipes_Container, styles.bg_scd_light_color, styles.padding2]}>
         <WeekDays
           recipeSelected={selected}
           assigned={assigned}
@@ -139,7 +139,6 @@ const localStyles = StyleSheet.create({
   mainContainer: { flex: 1, flexDirection: 'column'},
   modalBackground: {
   flex: 1,
-  backgroundColor: 'rgba(0,0,0,0.5)',
   justifyContent: 'center',
   alignItems: 'center',
 },

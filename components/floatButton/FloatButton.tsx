@@ -10,7 +10,7 @@ export default function FloatButton ({ onPressFunc }: FloatButtonProps) {
 
   return (
     <TouchableOpacity 
-      style={[styles.float_button, styles.bg_scd_light_color]}
+      style={[styles.float_button, styles.bg_scd_lightest_color, styles.shadow_hard]}
       onPress={()=>onPressFunc()}
     />
   )

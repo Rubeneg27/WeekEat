@@ -49,8 +49,8 @@ const filteredRecipes = useMemo(() => {
       <View style={localStyles.addRecipe_button_container}>
         <TouchableOpacity 
             onPress={onAddNewRecipe}
-            accessibilityLabel="Borrar todas las asignaciones de la semana"
-            style={[styles.bg_scd_light_color, styles.padding5, styles.height100, styles.width100px, styles.centerContent]}
+            accessibilityLabel="Añadir receta nueva"
+            style={[styles.bg_scd_lightest_color, styles.buttonUI, styles.shadow_hard]}
         >
           <Text>Añadir</Text>
         </ TouchableOpacity>
@@ -69,12 +69,13 @@ const filteredRecipes = useMemo(() => {
           >
             <Text style={[localStyles.recipeText, styles.prmy_light_color]}>{r.name}</Text>
             <View style={localStyles.view_button_cont}>
-              <Button 
+              <TouchableOpacity 
                 onPress={() => onOpenRecipeView(r)}
-                title="Ver"
-                color="grey"
                 accessibilityLabel="Abrir detalles de la receta"
-              />
+                style={[styles.bg_prmy_light_color, styles.buttonUI]}
+              >
+                Ver
+              </TouchableOpacity>
             </View>
           </TouchableOpacity>
         ))}

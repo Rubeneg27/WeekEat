@@ -28,21 +28,21 @@ export default function WeekDays({
         <TouchableOpacity
           onPress={onClearWeek}
           accessibilityLabel="Borrar todas las asignaciones de la semana"
-          style={[styles.bgRed, styles.padding5, styles.height100, styles.width100px, styles.centerContent]}
+          style={[styles.bgRed, styles.buttonUI, styles.shadow_hard]}
         >
           <Text>Borrar</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={onSaveWeek}
           accessibilityLabel="Almacenar semana en memoria"
-          style={[styles.bg_scd_light_color, styles.padding5, styles.height100, styles.width100px, styles.centerContent]}
+          style={[styles.bg_scd_lightest_color, styles.buttonUI, styles.shadow_hard]}
         >
           <Text>Guardar</Text>
         </TouchableOpacity>
       </View>
       <ScrollView style={[]}>
         {weekDays.map((day, dIdx) => (
-          <View key={dIdx} style={[styles.dayCard, styles.bg_prmy_light_color]}>
+          <View key={dIdx} style={[styles.dayCard, styles.bg_prmy_light_color, styles.shadow_hard]}>
             <Text style={[styles.dayTitle]}>{day}</Text>
             {[0,1].map(sIdx => {
               const key = `${dIdx}-${sIdx}`;
