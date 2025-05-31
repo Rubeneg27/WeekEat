@@ -28,6 +28,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,         // Valor entre 0 y 1
     shadowRadius: 0,            // Difuminado de la sombra
     color: '#505b64',           // Esto es para el texto, no tiene que ver con la sombra
+    elevation: 5, // <- Esto sí funciona en Android Release
+
   },
   shadow_hard: {
         shadowColor: '#272b2e80',   // Color (puede incluir opacidad)
@@ -38,6 +40,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 1,         // Valor entre 0 y 1
     shadowRadius: 5,            // Difuminado de la sombra
     color: '#505b64',  
+    elevation: 5, // <- Esto sí funciona en Android Release
+
   },
   float_button: {
     width: 70,
@@ -51,16 +55,17 @@ const styles = StyleSheet.create({
     zIndex: 10,
   },
   filtersContainer: {
-    bottom: '3%',
-    left: '2%',
+    bottom: 50,
+    // left: '2%',
     position: 'absolute',
-    borderRadius: '15px',
+    // borderRadius: '10px',
   },
   dayTitle: { fontWeight:'bold', marginBottom:4, textAlign: 'center' },
   dayCard: { margin: 10, padding: 5, borderRadius:6 },
   daySlot: { height: 40, marginVertical:4, backgroundColor:'#fc9', borderRadius:4, justifyContent:'center', alignItems:'center'},
   daySlotActive: { borderWidth:2, borderColor:'blue' },
-  buttonUI: { color: 'black', padding: '5%', height: 60, width: 60, justifyContent: 'center', alignItems: 'center', borderRadius: 5},
+  buttonUI: { color: 'black', padding: '5%', height: 45, width: 45, justifyContent: 'center', alignItems: 'center', borderRadius: 5},
+  buttonUIadaptable: { color: 'black', justifyContent: 'center', alignItems: 'center', borderRadius: 5 },
 
   vContainer: { flex:1, flexDirection:'column', backgroundColor: 'lightgrey' },
   centerContent: { justifyContent: 'center', alignItems: 'center' },
@@ -73,11 +78,14 @@ const styles = StyleSheet.create({
   width0: {width: '0%'},
   width100: {width: '100%'},
   width100px: {width: 100},
+  width150px: {width: 150},
+  width200px: {width: 200},
   width90: {width: '90%'},
   height100: {height: '100%'},
   padding2: {padding: '2%'},
   padding0: {padding: '0%'},
   padding5: {padding: '5%'},
+  paddingH5: {paddingHorizontal: '5%'},
   paddingB20: {paddingBottom: '20%'},
   paddingB10: {paddingBottom: '10%'},
 

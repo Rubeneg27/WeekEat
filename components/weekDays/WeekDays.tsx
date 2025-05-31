@@ -24,22 +24,22 @@ export default function WeekDays({
 }: WeekDaysProps) {
   return (
     <View style={styles.flexDouble}>
-      {/* <View style={[localStyles.buttons_container]}>
+      <View style={[localStyles.buttons_container]}>
         <TouchableOpacity
           onPress={onClearWeek}
           accessibilityLabel="Borrar todas las asignaciones de la semana"
-          style={[styles.bgRed, styles.buttonUI, styles.shadow_hard]}
+          style={[styles.bgRed, styles.buttonUI, styles.shadow_hard, styles.width100px]}
         >
           <Text>Borrar</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={onSaveWeek}
           accessibilityLabel="Almacenar semana en memoria"
-          style={[styles.bg_scd_lightest_color, styles.buttonUI, styles.shadow_hard]}
+          style={[styles.bg_scd_lightest_color, styles.buttonUI, styles.shadow_hard, styles.width100px]}
         >
           <Text>Guardar</Text>
         </TouchableOpacity>
-      </View> */}
+      </View>
       <ScrollView style={[]}>
         {weekDays.map((day, dIdx) => (
           <View key={dIdx} style={[styles.dayCard, styles.bg_prmy_light_color, styles.shadow_hard]}>

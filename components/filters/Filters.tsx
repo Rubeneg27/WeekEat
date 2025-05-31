@@ -1,79 +1,127 @@
-import { JSX, use, useEffect, useState } from "react";
-import { View, Text, ScrollView, StyleSheet, Button } from "react-native";
-import { fetchIngredients, fetchCategories } from "../../data/recipes";
-import styles from "../styles";
+import React, { useState, useEffect } from 'react';
+import {
+  View,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
+import { fetchIngredients, fetchCategories } from '../../data/recipes';
+import styles from '../styles';
 
 type FiltersProps = {
-    ingredientsFilters: string[];
-    onAddFilter: (filter: string) => void;
-    isActive: boolean,
-  };
-  
-  export default function Filters({
-    ingredientsFilters,
-    onAddFilter,
-    isActive
-  }: FiltersProps): JSX.Element {
-    // mantenemos sólo "ingredients" local
-    const [ingredients, setIngredients] = useState<string[]>([]);
-    const [categories, setCategories] = useState<string[]>([]);
-  
-    useEffect(() => {
-      fetchIngredients().then((data) => {
-        const uniqueIng = Array.from(
-          new Set(data.flatMap((i) => i.ingredients))
-        );
+  ingredientsFilters: string[];
+  onAddFilter: (filter: string) => void;
+  isActive: boolean;
+};
 
-        setIngredients(uniqueIng);
-      });
+export default function Filters({
+  ingredientsFilters,
+  onAddFilter,
+  isActive,
+}: FiltersProps): JSX.Element {
+  const [ingredients, setIngredients] = useState<string[]>([]);
+  const [categories, setCategories] = useState<string[]>([]);
 
-        fetchCategories().then((data) => {
-        const uniqueCat = Array.from(
-        new Set(data.flatMap((i) => i.Category))
-        );
+  /* ────────────────────────────── CARGA DE OPCIONES ───────────────────────────── */
+  useEffect(() => {
+    (async () => {
+      const ingData = await fetchIngredients();
+      const catData = await fetchCategories();
 
-        setCategories(uniqueCat)
-      })
-    }, []);
-  
-    return (
-      <View style={
-        isActive ?
-        [styles.vContainer, styles.bg_scd_color, styles.marginR100, styles.filtersContainer, styles.width90, styles.padding2, styles.shadow_hard] 
-        : [styles.padding0, styles.width0, styles.vContainer, styles.bg_ntr_dark_color, styles.marginR100, styles.filtersContainer, styles.padding0]
-        }>
-        {/* categorías */}
-        <ScrollView horizontal style={[styles.padding0]}>
-          {categories.map((c) => (
-            <View key={c} style={[styles.marginR10, styles.marginB10]}>
-              <Button
-                title={c}
-                onPress={() => onAddFilter(c)}
-                color="#841584"
-              />
-            </View>
-          ))}
-        </ScrollView>
-  
-        {/* ingredientes */}
-        <ScrollView horizontal style={[]}>
-          {ingredients.map((ing) => (
-            <View key={ing} style={[styles.marginR10, styles.marginB10]}>
-              <Button
-                title={ing}
-                onPress={() => onAddFilter(ing)}
-                color={ ingredients.includes(ing) ? "#73465c" : "#15465c" }
-              />
-            </View>
-          ))}
-        </ScrollView>
-  
-        {/* mostrar filtros activos */}
-        <ScrollView horizontal>
-            <Text style={[]}>
-            Activos: {ingredientsFilters.join(', ') || 'ninguno'}
-            </Text>
-        </ScrollView>
-      </View>
-    );
-  }
+      setIngredients(
+        Array.from(new Set(ingData.flatMap((i) => i.ingredients))),
+      );
+      setCategories(Array.from(new Set(catData.flatMap((i) => i.Category))));
+    })();
+  }, []);
+
+  /* ──────────────────────────────────── UI ────────────────────────────────────── */
+  return (
+    <View
+      style={
+        isActive
+          ? [
+              styles.vContainer,
+              styles.bg_ntr_color,
+              styles.filtersContainer,
+              styles.width100,
+              styles.padding2,
+              styles.shadow_hard,
+            ]
+          : [
+              styles.vContainer,
+              styles.filtersContainer,
+              styles.width0,
+              styles.padding0,
+            ]
+      }
+    >
+      {/* ───── Categorías ───── */}
+      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        {categories.map((c) => {
+          const active = ingredientsFilters.includes(c);
+          return (
+            <TouchableOpacity
+              key={c}
+              onPress={() => onAddFilter(c)}
+              style={[
+                styles.buttonUIadaptable,
+                active ? styles.bg_prmy_light_color : styles.bg_scd_lightest_color,
+                styles.marginR10,
+                styles.marginB10,
+              ]}
+            >
+              <Text>{c}</Text>
+            </TouchableOpacity>
+          );
+        })}
+      </ScrollView>
+
+      {/* ───── Ingredientes ───── */}
+      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        {ingredients.map((ing) => {
+          const active = ingredientsFilters.includes(ing);
+          return (
+            <TouchableOpacity
+              key={ing}
+              onPress={() => onAddFilter(ing)}
+              style={[
+                styles.buttonUIadaptable,
+                active ? styles.bg_prmy_light_color : styles.bg_scd_lightest_color,
+                styles.marginR10,
+                styles.marginB10,
+              ]}
+            >
+              <Text>{ing}</Text>
+            </TouchableOpacity>
+          );
+        })}
+      </ScrollView>
+
+      {/* ───── Filtros activos (chips que se pueden quitar) ───── */}
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        style={[styles.marginB10, styles.marginR10]}
+      >
+        {ingredientsFilters.length === 0 ? (
+          <Text>Activos: ninguno</Text>
+        ) : (
+          ingredientsFilters.map((f) => (
+            <TouchableOpacity
+              key={f}
+              onPress={() => onAddFilter(f)} // ← vuelve a llamarse para quitarlo
+              style={[
+                styles.buttonUIadaptable,
+                styles.bg_ntr_dark_color,
+                styles.marginR10,
+              ]}
+            >
+              <Text style={styles.prmy_light_color}>{f} ✕</Text>
+            </TouchableOpacity>
+          ))
+        )}
+      </ScrollView>
+    </View>
+  );
+}

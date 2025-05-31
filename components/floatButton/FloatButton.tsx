@@ -11,17 +11,17 @@ export default function FloatButton ({ onPressFunc }: FloatButtonProps) {
   return (
     <View style={[localSyles.floatContainer]}>
       <TouchableOpacity 
-      style={[styles.buttonUI, styles.bg_scd_lightest_color, styles.shadow_hard,styles.marginR10]}
+      style={[styles.buttonUI, styles.bg_scd_lightest_color, styles.shadow_hard,styles.marginR10, styles.marginB10]}
+      onPress={()=>onPressFunc()}
+      />
+            {/* <TouchableOpacity 
+      style={[styles.buttonUI, styles.bg_scd_lightest_color, styles.shadow_hard,styles.marginR10, styles.marginB10 ]}
       onPress={()=>onPressFunc()}
       />
             <TouchableOpacity 
-      style={[styles.buttonUI, styles.bg_scd_lightest_color, styles.shadow_hard,styles.marginR10 ]}
+      style={[styles.buttonUI, styles.bg_scd_lightest_color, styles.shadow_hard, styles.marginR10,  styles.marginB10]}
       onPress={()=>onPressFunc()}
-      />
-            <TouchableOpacity 
-      style={[styles.buttonUI, styles.bg_scd_lightest_color, styles.shadow_hard, styles.marginR10]}
-      onPress={()=>onPressFunc()}
-      />
+      /> */}
     </View>
   )
 }
@@ -30,8 +30,8 @@ const localSyles = StyleSheet.create({
   floatContainer: {
     flexDirection: 'row',
     right: 0,
-    bottom: 10,
+    bottom: 5,
     position: 'absolute',
-    height: 60,
+    // backgroundColor: 'black'
   }
 })
